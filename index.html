@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        #game-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        button.game-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            width: 150px;
+            height: 150px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        button.game-button:hover {
+            background-color: #0056b3;
+        }
+
+        #game-container {
+            margin-top: 1rem;
+            width: 80%;
+            height: 600px;
+        }
+
+        iframe {
+            width: 90%;
+            height: 100%;
+            border: none;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Game List</h1>
+    </header>
+    <main>
+        <div id="game-list"></div>
+        <div id="game-container">
+            <iframe id="game-frame" src="" hidden></iframe>
+        </div>
+    </main>
+    <script>
+        const games = [
+   "1v1lol",
+   "2048",
+   "adarkroom",
+   "asciispace",
+   "assessmentexamination",
+   "asteroids",
+   "astray",
+   "backcountry",
+   "baldisbasics",
+   "basketballlegends",
+   "basketballstars",
+   "basketbrosio",
+   "basketrandom",
+   "bitlife",
+   "blackholesquare",
+   "bounceback",
+   "boxingrandom",
+   "breaklock",
+   "breakout",
+   "btd4",
+   "captaincallisto",
+   "chess",
+   "chromaincident",
+   "chromedino",
+   "clickerheroes",
+   "clusterrush",
+   "connect3",
+   "cookieclicker",
+   "crossyroad",
+   "csgoclicker",
+   "cubefield",
+   "cubitomayhem",
+   "cuttherope",
+   "cuttheropeholiday",
+   "cuttheropetimetravel",
+   "deathrun3d",
+   "deepestsword",
+   "doodlejump",
+   "doom",
+   "drawthehill",
+   "drift",
+   "drifthunters",
+   "drivemad",
+   "ducklife",
+   "ducklife2",
+   "ducklife3",
+   "ducklife4",
+   "ducklife5",
+   "eaglercraft-1-8-8",
+   "earntodie",
+   "edgenotfound",
+   "eggycar",
+   "evilglitch",
+   "factoryballsforever",
+   "fireboyandwatergirlforesttemple",
+   "flappy2048",
+   "flappybird",
+   "flappyplane",
+   "flightsimulator",
+   "fridaynightfunkin",
+   "friendlyfire",
+   "fruitninja",
+   "geometrydash",
+   "getawayshootoutnew",
+   "gladihoppers",
+   "googlesnake",
+   "gopherkart",
+   "grindcraft",
+   "hexgl",
+   "hextris",
+   "highwaytraffic",
+   "konnekt",
+   "learntofly",
+   "letssurf",
+   "littlealchemy",
+   "mergeroundracers",
+   "monkeymart",
+   "motoroadrash3d",
+   "motox3m",
+   "ninjavsevilcorp",
+   "omnombounce",
+   "ovo",
+   "ovo2",
+   "packabunchas",
+   "pacman",
+   "paperio",
+   "particleclicker",
+   "pushback",
+   "q1k3",
+   "r3",
+   "racer",
+   "radiusraid",
+   "redball4",
+   "retrobowl",
+   "retrohaunt",
+   "riddleschool2",
+   "ritz",
+   "roadblocks",
+   "rooftopsnipers",
+   "run3",
+   "scrapmetal3",
+   "shuttledeck",
+   "sketchbook04",
+   "sleepingbeauty",
+   "slitherio",
+   "slope",
+   "slope2",
+   "snake",
+   "snowbattle",
+   "soccerrandom",
+   "solitaire",
+   "spacecompany",
+   "spacegarden",
+   "spacehuggers",
+   "spaceinvaders",
+   "stack",
+   "stackball",
+   "stickman-hook",
+   "stickmanboost",
+   "stickmanclimb",
+   "stickmangolf",
+   "stickmanhook",
+   "stickmansurvival",
+   "subwaysurfers",
+   "subwaysurfersny",
+   "subwaysurferssingapore",
+   "tanukisunset",
+   "tetris",
+   "themazeofspacegoblins",
+   "timeshooter",
+   "timeshooter2",
+   "timeshooter3",
+   "tinyfishing",
+   "tombofthemask",
+   "topspeedracing3d",
+   "towermaster",
+   "trimps",
+   "tunnelrush",
+   "vex3",
+   "vex4",
+   "vex5",
+   "vex6",
+   "webecomewhatwebehold",
+   "worldshardestgame2",
+   "xx142b2exe",
+   "zombsroyale"
+];
+
+
+        const gameListDiv = document.getElementById("game-list");
+        const gameFrame = document.getElementById("game-frame");
+
+        games.forEach(game => {
+            const button = document.createElement("button");
+            button.className = "game-button";
+            button.textContent = game;
+            button.onclick = () => {
+                gameFrame.src = window.location.href + `/${game}/`;
+                gameFrame.hidden = false;
+            };
+            gameListDiv.appendChild(button);
+        });
+    </script>
+</body>
+</html>
